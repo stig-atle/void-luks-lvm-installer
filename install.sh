@@ -32,7 +32,8 @@ fi
 # Detect if we're on an Intel system
 CPU_VENDOR=$(grep vendor_id /proc/cpuinfo | awk '{print $3}')
 if [ $CPU_VENDOR = "GenuineIntel" ]; then
-  PKG_LIST="$PKG_LIST intel-ucode"
+	echo 'Skipping intel-ucode, it was not found in repository.'
+#  PKG_LIST="$PKG_LIST intel-ucode"
 fi
 
 # Install requirements
@@ -123,7 +124,7 @@ done
 mkdir -p /mnt/var/db/xbps/keys/
 cp -a /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
 
-xbps-install -y -S -R http://repo.voidlinux.eu/current -r /mnt $PKG_LIST
+xbps-install -y -S -R https://alpha.de.repo.voidlinux.org/current -r /mnt $PKG_LIST
 
 # Do a bit of customization
 echo "[!] Setting root password"
